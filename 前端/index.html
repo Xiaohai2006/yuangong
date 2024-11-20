@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>员工信息</title>
+  <link rel="stylesheet" href="element-ui/index.css">
+</head>
+<body>
+<div id="app">
+  <h1 align="center">员工信息列表展示</h1>
+  <el-table :data="tableData" style="width: 100%"  stripe border >
+    <el-table-column prop="name" label="姓名" align="center" min-width="20%"></el-table-column>
+    <el-table-column prop="age" label="年龄" align="center" min-width="20%"></el-table-column>
+    <el-table-column label="图像" align="center"  min-width="20%">
+      <template slot-scope="scope">
+        <el-image :src="scope.row.image" style="width: 80px; height: 50px;"></el-image>
+      </template>
+    </el-table-column>
+    <el-table-column prop="gender" label="性别" align="center"  min-width="20%"></el-table-column>
+    <el-table-column prop="job" label="职位" align="center"  min-width="20%"></el-table-column>
+  </el-table>
+</div>
+<script src="./js/vue.js"></script>
+<script src="./element-ui/index.js"></script>
+<script src="./js/axios-0.18.0.js"></script>
+<script>
+  new Vue({
+    el: "#app",
+    data() {
+      return {
+        tableData: []
+      }
+    },
+    mounted(){
+      axios.get('http://127.0.0.1:8080').then(res=>{
+        if(res.data.code){
+          this.tableData = res.data.data;
+        }
+      });
+
+      //从 http://cl.xiaohai2006.cn:9113/listEmp获取数据
+
+
+
+
+    },
+    methods: {
+    }
+  });
+</script>
+</body>
+</html>
